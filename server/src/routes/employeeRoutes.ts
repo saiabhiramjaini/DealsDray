@@ -1,5 +1,5 @@
-import express from 'express';
-const employeeRouter = express.Router();
+import {Router} from 'express';
+const employeeRouter: Router = Router();
 
 import {createEmployee, getEmployees, updateEmployee, deleteEmployee} from '../controllers/employeeControllers';
 
