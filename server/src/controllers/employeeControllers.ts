@@ -2,15 +2,8 @@ import { Request, Response } from 'express';
 import z from 'zod';
 import EmployeeModel from '../models/employeeModel';
 
-const employeeSchema = z.object({
-    name: z.string().min(1, {message:"Name is required"}),
-    email: z.string().email({message: "Invalid email address"}),
-    mobile: z.string().min(1, {message: "Mobile number is required"}),
-    designation: z.enum(["HR", "Manager", "Sales"], {message: "Invalid designation"}),
-    gender: z.enum(["M", "F"], {message:"Invalid gender"}),
-    course: z.enum(["MCA", "BCA", "BSC"], {message: "Invalid course"}),
-    image: z.string().url({message: "Invalid image URL"})
-});
+// @ts-ignore
+import { employeeSchema } from '@abhiram2k03/dealsdray-common';
 
 export const createEmployee = async (req: Request, res: Response) => {
     try {

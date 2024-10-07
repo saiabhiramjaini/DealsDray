@@ -4,23 +4,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = __importDefault(require("mongoose"));
-var designationEnum;
-(function (designationEnum) {
-    designationEnum[designationEnum["HR"] = 0] = "HR";
-    designationEnum[designationEnum["Manager"] = 1] = "Manager";
-    designationEnum[designationEnum["Sales"] = 2] = "Sales";
-})(designationEnum || (designationEnum = {}));
-var genderEnum;
-(function (genderEnum) {
-    genderEnum[genderEnum["M"] = 0] = "M";
-    genderEnum[genderEnum["F"] = 1] = "F";
-})(genderEnum || (genderEnum = {}));
-var courseEnum;
-(function (courseEnum) {
-    courseEnum[courseEnum["MCA"] = 0] = "MCA";
-    courseEnum[courseEnum["BCA"] = 1] = "BCA";
-    courseEnum[courseEnum["BSC"] = 2] = "BSC";
-})(courseEnum || (courseEnum = {}));
+// @ts-ignore
+const dealsdray_common_1 = require("@abhiram2k03/dealsdray-common");
 const EmployeeSchema = new mongoose_1.default.Schema({
     name: {
         type: String,
@@ -38,17 +23,17 @@ const EmployeeSchema = new mongoose_1.default.Schema({
     designation: {
         type: String,
         required: true,
-        enum: Object.values(designationEnum)
+        enum: Object.values(dealsdray_common_1.designationEnum)
     },
     gender: {
         type: String,
         required: true,
-        enum: genderEnum
+        enum: dealsdray_common_1.genderEnum
     },
     course: {
         type: String,
         required: true,
-        enum: courseEnum
+        enum: dealsdray_common_1.courseEnum
     },
     image: {
         type: String,

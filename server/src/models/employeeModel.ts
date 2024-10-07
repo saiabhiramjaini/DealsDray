@@ -1,21 +1,6 @@
 import mongoose from 'mongoose';
-
-enum designationEnum {
-    "HR",
-    "Manager",
-    "Sales"
-}
-
-enum genderEnum {
-    "M",
-    "F"
-}
-
-enum courseEnum {
-    "MCA",
-    "BCA",
-    "BSC"
-}
+// @ts-ignore
+import { designationEnum, genderEnum, courseEnum } from '@abhiram2k03/dealsdray-common';
 
 const EmployeeSchema = new mongoose.Schema({
     name:{

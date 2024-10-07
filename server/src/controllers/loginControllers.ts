@@ -3,13 +3,8 @@ import z from "zod";
 import bcrypt from "bcrypt";
 import LoginModel from "../models/loginModel";
 import jwt from "jsonwebtoken";
-
-const loginSchema = z.object({
-  username: z.string().min(1, { message: "Username should be non-empty" }),
-  password: z
-    .string()
-    .min(8, { message: "Password must be at least 8 characters long" }),
-});
+// @ts-ignore
+import {loginSchema} from '@abhiram2k03/dealsdray-common';
 
 export const createUser = async (req: Request, res: Response) => {
   try {

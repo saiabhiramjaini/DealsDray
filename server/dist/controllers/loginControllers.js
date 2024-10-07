@@ -17,15 +17,11 @@ const zod_1 = __importDefault(require("zod"));
 const bcrypt_1 = __importDefault(require("bcrypt"));
 const loginModel_1 = __importDefault(require("../models/loginModel"));
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
-const loginSchema = zod_1.default.object({
-    username: zod_1.default.string().min(1, { message: "Username should be non-empty" }),
-    password: zod_1.default
-        .string()
-        .min(8, { message: "Password must be at least 8 characters long" }),
-});
+// @ts-ignore
+const dealsdray_common_1 = require("@abhiram2k03/dealsdray-common");
 const createUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const { username, password } = loginSchema.parse(req.body);
+        const { username, password } = dealsdray_common_1.loginSchema.parse(req.body);
         const existingUser = yield loginModel_1.default.findOne({ username });
         if (existingUser) {
             return res
@@ -62,7 +58,7 @@ const createUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
 exports.createUser = createUser;
 const loginUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const { username, password } = loginSchema.parse(req.body);
+        const { username, password } = dealsdray_common_1.loginSchema.parse(req.body);
         const existingUser = yield loginModel_1.default.findOne({ username });
         if (!existingUser) {
             return res

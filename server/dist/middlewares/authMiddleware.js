@@ -21,9 +21,7 @@ const authMiddleware = (req, res, next) => __awaiter(void 0, void 0, void 0, fun
             return res.status(401).json({ message: 'Unauthorized' });
         }
         const token = req.cookies.token;
-        // Decode the token and extract the `id`
         const decoded = jsonwebtoken_1.default.verify(token, process.env.JWT_SECRET);
-        // Use only the `id` to query the user
         const user = yield loginModel_1.default.findOne({ _id: decoded.id });
         if (!user) {
             return res.status(401).json({ message: 'Unauthorized' });

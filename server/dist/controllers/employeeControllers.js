@@ -15,18 +15,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.deleteEmployee = exports.updateEmployee = exports.getEmployees = exports.createEmployee = void 0;
 const zod_1 = __importDefault(require("zod"));
 const employeeModel_1 = __importDefault(require("../models/employeeModel"));
-const employeeSchema = zod_1.default.object({
-    name: zod_1.default.string().min(1, { message: "Name is required" }),
-    email: zod_1.default.string().email({ message: "Invalid email address" }),
-    mobile: zod_1.default.string().min(1, { message: "Mobile number is required" }),
-    designation: zod_1.default.enum(["HR", "Manager", "Sales"], { message: "Invalid designation" }),
-    gender: zod_1.default.enum(["M", "F"], { message: "Invalid gender" }),
-    course: zod_1.default.enum(["MCA", "BCA", "BSC"], { message: "Invalid course" }),
-    image: zod_1.default.string().url({ message: "Invalid image URL" })
-});
+// @ts-ignore
+const dealsdray_common_1 = require("@abhiram2k03/dealsdray-common");
 const createEmployee = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const employeeData = employeeSchema.parse(req.body);
+        const employeeData = dealsdray_common_1.employeeSchema.parse(req.body);
         const existingEmployee = yield employeeModel_1.default.findOne({ email: employeeData.email });
         if (existingEmployee) {
             return res.status(400).json({ message: "Employee already exists." });
@@ -63,7 +56,7 @@ exports.getEmployees = getEmployees;
 const updateEmployee = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { id } = req.params;
-        const employeeData = employeeSchema.parse(req.body);
+        const employeeData = dealsdray_common_1.employeeSchema.parse(req.body);
         const updatedEmployee = yield employeeModel_1.default.findByIdAndUpdate(id, employeeData, { new: true });
         if (!updatedEmployee) {
             return res.status(404).json({ message: "Employee not found" });
