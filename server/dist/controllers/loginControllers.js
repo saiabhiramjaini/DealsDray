@@ -71,7 +71,7 @@ const loginUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         }
         const token = jsonwebtoken_1.default.sign({ id: existingUser._id }, process.env.JWT_SECRET);
         res.cookie("token", token, { httpOnly: true });
-        return res.status(200).json({ message: "Login successful" });
+        return res.status(200).json({ message: "Login successful", user: existingUser });
     }
     catch (err) {
         if (err instanceof zod_1.default.ZodError) {

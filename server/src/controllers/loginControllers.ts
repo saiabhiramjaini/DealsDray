@@ -49,7 +49,7 @@ export const createUser = async (req: Request, res: Response) => {
   }
 };
 
-export const loginUser = async (req: Request, res: Response): Promise<Response> => {
+export const loginUser = async (req: Request, res: Response) => {
     try {
         const { username, password } = loginSchema.parse(req.body);
     
@@ -69,7 +69,7 @@ export const loginUser = async (req: Request, res: Response): Promise<Response> 
         const token = jwt.sign({ id: existingUser._id }, process.env.JWT_SECRET!);
         res.cookie("token", token, { httpOnly: true });
 
-        return res.status(200).json({ message: "Login successful" });
+        return res.status(200).json({ message: "Login successful", user: existingUser });
       } 
       catch (err) {
         if (err instanceof z.ZodError) {
