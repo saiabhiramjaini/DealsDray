@@ -4,7 +4,7 @@ import bcrypt from "bcrypt";
 import LoginModel from "../models/loginModel";
 
 const loginSchema = z.object({
-  email: z.string().email({ message: "Invalid email address" }),
+  username: z.string().min(1, { message: "Username should be non-empty" }),
   password: z
     .string()
     .min(8, { message: "Password must be at least 8 characters long" }),
@@ -12,9 +12,9 @@ const loginSchema = z.object({
 
 export const createUser = async (req: Request, res: Response) => {
   try {
-    const { email, password } = loginSchema.parse(req.body);
+    const { username, password } = loginSchema.parse(req.body);
 
-    const existingUser = await LoginModel.findOne({ email });
+    const existingUser = await LoginModel.findOne({ username });
     if (existingUser) {
       return res
         .status(400)
@@ -24,7 +24,7 @@ export const createUser = async (req: Request, res: Response) => {
     const hashedPassword = await bcrypt.hash(password, 10);
 
     const newUser = await LoginModel.create({
-      email,
+      username,
       password: hashedPassword,
     });
 
@@ -52,9 +52,9 @@ export const createUser = async (req: Request, res: Response) => {
 
 export const loginUser = async (req: Request, res: Response): Promise<Response> => {
     try {
-        const { email, password } = loginSchema.parse(req.body);
+        const { username, password } = loginSchema.parse(req.body);
     
-        const existingUser = await LoginModel.findOne({ email });
+        const existingUser = await LoginModel.findOne({ username });
         if (!existingUser) {
           return res
             .status(400)

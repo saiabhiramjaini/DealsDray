@@ -1,11 +1,11 @@
-import express from 'express';
+import express, {Express} from 'express';
 import cors from 'cors';
 import connectDB from './db/connect';
 import loginRouter from './routes/loginRoutes';
 import employeeRouter from './routes/employeeRoutes';
 require('dotenv').config();
 
-const app = express();
+const app= express();
 
 app.use(cors());
 app.use(express.json());
