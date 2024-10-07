@@ -2,7 +2,6 @@ import { Request, Response } from 'express';
 import z from 'zod';
 import EmployeeModel from '../models/employeeModel';
 
-
 const employeeSchema = z.object({
     name: z.string().min(1, {message:"Name is required"}),
     email: z.string().email({message: "Invalid email address"}),
@@ -23,6 +22,7 @@ export const createEmployee = async (req: Request, res: Response) => {
       }
   
       const newEmployee = await EmployeeModel.create(employeeData);
+
       return res.status(201).json({ message: "Employee created successfully", employee: newEmployee });
     } 
     catch (err) {

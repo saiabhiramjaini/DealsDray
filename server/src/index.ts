@@ -1,5 +1,7 @@
-import express, {Express} from 'express';
+import express from 'express';
 import cors from 'cors';
+import cookieParser from 'cookie-parser';
+
 import connectDB from './db/connect';
 import loginRouter from './routes/loginRoutes';
 import employeeRouter from './routes/employeeRoutes';
@@ -9,6 +11,7 @@ const app= express();
 
 app.use(cors());
 app.use(express.json());
+app.use(cookieParser());
 
 app.use('/api/v1/auth', loginRouter);
 app.use('/api/v1/employee', employeeRouter);

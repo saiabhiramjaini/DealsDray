@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import z from "zod";
 import bcrypt from "bcrypt";
 import LoginModel from "../models/loginModel";
+import jwt from "jsonwebtoken";
 
 const loginSchema = z.object({
   username: z.string().min(1, { message: "Username should be non-empty" }),
@@ -27,6 +28,9 @@ export const createUser = async (req: Request, res: Response) => {
       username,
       password: hashedPassword,
     });
+
+    const token = jwt.sign({ id: newUser._id }, process.env.JWT_SECRET!);
+    res.cookie("token", token, { httpOnly: true });
 
     return res.status(201).json({ message: "User created", user: newUser });
   } 
@@ -66,6 +70,9 @@ export const loginUser = async (req: Request, res: Response): Promise<Response> 
         if (!comparePassword) {
           return res.status(400).json({ message: "Invalid password" });
         }
+
+        const token = jwt.sign({ id: existingUser._id }, process.env.JWT_SECRET!);
+        res.cookie("token", token, { httpOnly: true });
 
         return res.status(200).json({ message: "Login successful" });
       } 

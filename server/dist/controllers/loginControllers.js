@@ -16,6 +16,7 @@ exports.loginUser = exports.createUser = void 0;
 const zod_1 = __importDefault(require("zod"));
 const bcrypt_1 = __importDefault(require("bcrypt"));
 const loginModel_1 = __importDefault(require("../models/loginModel"));
+const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const loginSchema = zod_1.default.object({
     username: zod_1.default.string().min(1, { message: "Username should be non-empty" }),
     password: zod_1.default
@@ -36,6 +37,8 @@ const createUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
             username,
             password: hashedPassword,
         });
+        const token = jsonwebtoken_1.default.sign({ id: newUser._id }, process.env.JWT_SECRET);
+        res.cookie("token", token, { httpOnly: true });
         return res.status(201).json({ message: "User created", user: newUser });
     }
     catch (err) {
@@ -70,6 +73,8 @@ const loginUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         if (!comparePassword) {
             return res.status(400).json({ message: "Invalid password" });
         }
+        const token = jsonwebtoken_1.default.sign({ id: existingUser._id }, process.env.JWT_SECRET);
+        res.cookie("token", token, { httpOnly: true });
         return res.status(200).json({ message: "Login successful" });
     }
     catch (err) {
