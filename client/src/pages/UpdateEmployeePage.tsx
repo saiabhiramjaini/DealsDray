@@ -241,6 +241,7 @@ export const UpdateEmployeePage = () => {
                   id="imgUpload"
                   onChange={handleImageChange}
                   className="mt-1"
+                  accept=".jpg,.png"
                 />
               </div>
 

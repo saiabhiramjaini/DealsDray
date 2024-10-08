@@ -242,6 +242,7 @@ export const CreateEmployeePage = () => {
                 onChange={handleImageChange}
                 className="mt-1"
                 required
+                accept=".jpg,.png"
               />
             </div>
             {errorMessage && (
