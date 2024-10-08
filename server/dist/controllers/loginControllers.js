@@ -14,7 +14,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.logoutUser = exports.loginUser = exports.createUser = void 0;
 const zod_1 = __importDefault(require("zod"));
-const bcrypt_1 = __importDefault(require("bcrypt"));
+const bcryptjs_1 = __importDefault(require("bcryptjs"));
 const loginModel_1 = __importDefault(require("../models/loginModel"));
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const dealsdray_common_1 = require("@abhiram2k03/dealsdray-common");
@@ -27,7 +27,7 @@ const createUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
                 .status(400)
                 .json({ message: "User already exists. Please login." });
         }
-        const hashedPassword = yield bcrypt_1.default.hash(password, 10);
+        const hashedPassword = yield bcryptjs_1.default.hash(password, 10);
         const newUser = yield loginModel_1.default.create({
             username,
             password: hashedPassword,
@@ -64,7 +64,7 @@ const loginUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
                 .status(400)
                 .json({ message: "User doesn't exists. Please Signin." });
         }
-        const comparePassword = yield bcrypt_1.default.compare(password, existingUser.password);
+        const comparePassword = yield bcryptjs_1.default.compare(password, existingUser.password);
         if (!comparePassword) {
             return res.status(400).json({ message: "Invalid password" });
         }

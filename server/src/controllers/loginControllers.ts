@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import z from "zod";
-import bcrypt from "bcrypt";
+import bcrypt from "bcryptjs";
 import LoginModel from "../models/loginModel";
 import jwt from "jsonwebtoken";
 import { loginSchema } from "@abhiram2k03/dealsdray-common";

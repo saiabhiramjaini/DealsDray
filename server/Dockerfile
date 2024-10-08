@@ -13,6 +13,9 @@ RUN npm install
 # Copy the rest of the application code
 COPY . .
 
+# Install TypeScript globally (alternative approach)
+RUN npm install -g typescript
+
 # Build the TypeScript code
 RUN npm run build
 
