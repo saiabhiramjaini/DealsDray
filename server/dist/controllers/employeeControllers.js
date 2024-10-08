@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteEmployee = exports.updateEmployee = exports.getEmployees = exports.createEmployee = void 0;
+exports.deleteEmployee = exports.updateEmployee = exports.getEmployee = exports.getEmployees = exports.createEmployee = void 0;
 const zod_1 = __importDefault(require("zod"));
 const employeeModel_1 = __importDefault(require("../models/employeeModel"));
 // @ts-ignore
@@ -53,6 +53,18 @@ const getEmployees = (req, res) => __awaiter(void 0, void 0, void 0, function* (
     }
 });
 exports.getEmployees = getEmployees;
+const getEmployee = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const { id } = req.params;
+        const employee = yield employeeModel_1.default.findById({ _id: id });
+        return res.status(200).json(employee);
+    }
+    catch (err) {
+        console.error("Error retrieving employees:", err);
+        return res.status(500).json({ message: "Internal server error" });
+    }
+});
+exports.getEmployee = getEmployee;
 const updateEmployee = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { id } = req.params;

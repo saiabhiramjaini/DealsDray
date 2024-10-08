@@ -6,6 +6,7 @@ const employeeControllers_1 = require("../controllers/employeeControllers");
 const authMiddleware_1 = require("../middlewares/authMiddleware");
 employeeRouter.post('/', authMiddleware_1.authMiddleware, employeeControllers_1.createEmployee);
 employeeRouter.get('/', authMiddleware_1.authMiddleware, employeeControllers_1.getEmployees);
+employeeRouter.get('/:id', authMiddleware_1.authMiddleware, employeeControllers_1.getEmployee);
 employeeRouter.put('/:id', authMiddleware_1.authMiddleware, employeeControllers_1.updateEmployee);
 employeeRouter.delete('/:id', authMiddleware_1.authMiddleware, employeeControllers_1.deleteEmployee);
 exports.default = employeeRouter;

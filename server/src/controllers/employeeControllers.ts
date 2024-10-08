@@ -43,6 +43,18 @@ export const getEmployees = async (req: Request, res: Response) => {
       return res.status(500).json({ message: "Internal server error" });
     }
   };
+
+  export const getEmployee = async (req: Request, res: Response) => {
+    try {
+      const { id } = req.params;
+      const employee = await EmployeeModel.findById({_id: id});
+      return res.status(200).json(employee);
+    } 
+    catch (err) {
+      console.error("Error retrieving employees:", err);
+      return res.status(500).json({ message: "Internal server error" });
+    }
+  };
   
 
   export const updateEmployee = async (req: Request, res: Response) => {

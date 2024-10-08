@@ -23,7 +23,7 @@ const EmployeeSchema = new mongoose_1.default.Schema({
     designation: {
         type: String,
         required: true,
-        enum: Object.values(dealsdray_common_1.designationEnum)
+        enum: dealsdray_common_1.designationEnum
     },
     gender: {
         type: String,

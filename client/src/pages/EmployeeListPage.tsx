@@ -1,33 +1,43 @@
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { backendURL } from "@/config"; // Ensure this imports correctly
+import { backendURL } from "@/config"; 
+import { useNavigate } from "react-router-dom";
 
 export const EmployeeListPage = () => {
   const [employees, setEmployees] = useState([]);
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+  const navigate = useNavigate();
 
-  // Fetch employee data from the backend
-  const fetchEmployees = async () => {
-    setLoading(true);
-    try {
-      const response = await axios.get(`${backendURL}/api/v1/employee`);
-      setEmployees(response.data);
-    } catch (error) {
-      console.error("Error fetching employees:", error);
-      setErrorMessage("Failed to load employee data.");
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  // Use useEffect to fetch data when the component mounts
   useEffect(() => {
+    const fetchEmployees = async () => {
+      setLoading(true);
+      try {
+        const response = await axios.get(`${backendURL}/api/v1/employee`);
+        console.log(response.data);
+        setEmployees(response.data);
+      } catch (error) {
+        console.error("Error fetching employees:", error);
+        setErrorMessage("Failed to load employee data.");
+      } finally {
+        setLoading(false);
+      }
+    };
     fetchEmployees();
   }, []);
+
+  const handleDelete = async (id: string) => {
+    try {
+     await axios.delete(`${backendURL}/api/v1/employee/${id}`);
+      setEmployees(employees.filter((employee: any) => employee._id !== id));
+    } catch (error) {
+      console.error("Error deleting employee:", error);
+      setErrorMessage("Failed to delete employee.");
+    }
+  }
 
   return (
     <div className="p-8">
@@ -46,10 +56,10 @@ export const EmployeeListPage = () => {
       )}
 
       <Table>
-        <TableCaption>A list of employees.</TableCaption>
         <TableHeader>
           <TableRow>
             <TableHead>Unique Id</TableHead>
+            <TableHead>Image</TableHead>
             <TableHead>Name</TableHead>
             <TableHead>Email</TableHead>
             <TableHead>Mobile No</TableHead>
@@ -57,7 +67,7 @@ export const EmployeeListPage = () => {
             <TableHead>Gender</TableHead>
             <TableHead>Course</TableHead>
             <TableHead>Create Date</TableHead>
-            <TableHead>Action</TableHead>
+            <TableHead>Actions</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
@@ -71,6 +81,7 @@ export const EmployeeListPage = () => {
             employees.map((employee: any) => (
               <TableRow key={employee._id}>
                 <TableCell>{employee._id}</TableCell>
+                <TableCell><img src={employee.image} alt="" className="w-10 object-cover"/></TableCell>
                 <TableCell>{employee.name}</TableCell>
                 <TableCell>{employee.email}</TableCell>
                 <TableCell>{employee.mobile}</TableCell>
@@ -79,8 +90,8 @@ export const EmployeeListPage = () => {
                 <TableCell>{employee.course}</TableCell>
                 <TableCell>{new Date(employee.createdAt).toLocaleDateString()}</TableCell>
                 <TableCell>
-                  <Button variant="ghost" size="sm">Edit</Button>
-                  <Button variant="ghost" size="sm" className="text-red-500">Delete</Button>
+                  <Button variant="ghost" size="sm" onClick={() => {navigate(`/update/${employee._id}`)}}>Edit</Button>
+                  <Button variant="ghost" size="sm" className="text-red-500" onClick={() => handleDelete(employee._id)}>Delete</Button>
                 </TableCell>
               </TableRow>
             ))

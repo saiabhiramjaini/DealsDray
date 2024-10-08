@@ -17,7 +17,7 @@ export default function App() {
       <Route path="/home" element={<DashboardPage/>} />
       <Route path="/create" element={<CreateEmployeePage/>} />
       <Route path="/employeelist" element={<EmployeeListPage/>} />
-      <Route path="/update" element={<UpdateEmployeePage/>} />
+      <Route path="/update/:id" element={<UpdateEmployeePage/>} />
     </Routes>
     </BrowserRouter>
    </>
