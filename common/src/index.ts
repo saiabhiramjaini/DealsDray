@@ -14,7 +14,7 @@ export const employeeSchema = z.object({
     designation: z.enum(["HR", "Manager", "Sales"], {message: "Invalid designation"}),
     gender: z.enum(["M", "F"], {message:"Invalid gender"}),
     course: z.enum(["MCA", "BCA", "BSC"], {message: "Invalid course"}),
-    image: z.string().url({ message: "Invalid image URL" })
+    image: z.string({message: "Upload Image"}).url({ message: "Invalid image URL" })
 });
 
 export type Login = z.infer<typeof loginSchema>;

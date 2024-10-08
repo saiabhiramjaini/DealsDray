@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.loginUser = exports.createUser = void 0;
+exports.logoutUser = exports.loginUser = exports.createUser = void 0;
 const zod_1 = __importDefault(require("zod"));
 const bcrypt_1 = __importDefault(require("bcrypt"));
 const loginModel_1 = __importDefault(require("../models/loginModel"));
@@ -23,7 +23,9 @@ const createUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
         const { username, password } = dealsdray_common_1.loginSchema.parse(req.body);
         const existingUser = yield loginModel_1.default.findOne({ username });
         if (existingUser) {
-            return res.status(400).json({ message: "User already exists. Please login." });
+            return res
+                .status(400)
+                .json({ message: "User already exists. Please login." });
         }
         const hashedPassword = yield bcrypt_1.default.hash(password, 10);
         const newUser = yield loginModel_1.default.create({
@@ -45,7 +47,11 @@ const createUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
             });
         }
         console.error("Error creating user:", err);
-        return res.status(500).json({ message: "An unexpected error occurred. Please try again later." });
+        return res
+            .status(500)
+            .json({
+            message: "An unexpected error occurred. Please try again later.",
+        });
     }
 });
 exports.createUser = createUser;
@@ -54,7 +60,9 @@ const loginUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         const { username, password } = dealsdray_common_1.loginSchema.parse(req.body);
         const existingUser = yield loginModel_1.default.findOne({ username });
         if (!existingUser) {
-            return res.status(400).json({ message: "User doesn't exists. Please Signin." });
+            return res
+                .status(400)
+                .json({ message: "User doesn't exists. Please Signin." });
         }
         const comparePassword = yield bcrypt_1.default.compare(password, existingUser.password);
         if (!comparePassword) {
@@ -62,7 +70,9 @@ const loginUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         }
         const token = jsonwebtoken_1.default.sign({ id: existingUser._id }, process.env.JWT_SECRET);
         res.cookie("token", token, { httpOnly: true });
-        return res.status(200).json({ message: "Login successful", user: existingUser });
+        return res
+            .status(200)
+            .json({ message: "Login successful", user: existingUser });
     }
     catch (err) {
         if (err instanceof zod_1.default.ZodError) {
@@ -75,7 +85,26 @@ const loginUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             });
         }
         console.error("Error creating user:", err);
-        return res.status(500).json({ message: "An unexpected error occurred. Please try again later." });
+        return res
+            .status(500)
+            .json({
+            message: "An unexpected error occurred. Please try again later.",
+        });
     }
 });
 exports.loginUser = loginUser;
+const logoutUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        res.clearCookie("token");
+        return res.status(200).json({ message: "Logout successful" });
+    }
+    catch (err) {
+        console.error("Error logging out user:", err);
+        return res
+            .status(500)
+            .json({
+            message: "An unexpected error occurred. Please try again later.",
+        });
+    }
+});
+exports.logoutUser = logoutUser;

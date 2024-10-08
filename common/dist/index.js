@@ -15,7 +15,7 @@ exports.employeeSchema = zod_1.z.object({
     designation: zod_1.z.enum(["HR", "Manager", "Sales"], { message: "Invalid designation" }),
     gender: zod_1.z.enum(["M", "F"], { message: "Invalid gender" }),
     course: zod_1.z.enum(["MCA", "BCA", "BSC"], { message: "Invalid course" }),
-    image: zod_1.z.string().url({ message: "Invalid image URL" })
+    image: zod_1.z.string({ message: "Upload Image" }).url({ message: "Invalid image URL" })
 });
 var designationEnum;
 (function (designationEnum) {
