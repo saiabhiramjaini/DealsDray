@@ -3,7 +3,6 @@ import z from "zod";
 import bcrypt from "bcrypt";
 import LoginModel from "../models/loginModel";
 import jwt from "jsonwebtoken";
-// @ts-ignore
 import {loginSchema} from '@abhiram2k03/dealsdray-common';
 
 export const createUser = async (req: Request, res: Response) => {

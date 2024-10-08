@@ -1,8 +1,6 @@
 import { Request, Response } from 'express';
 import z from 'zod';
 import EmployeeModel from '../models/employeeModel';
-
-// @ts-ignore
 import { employeeSchema } from '@abhiram2k03/dealsdray-common';
 
 export const createEmployee = async (req: Request, res: Response) => {
