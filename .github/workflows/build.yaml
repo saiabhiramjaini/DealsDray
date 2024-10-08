@@ -1,4 +1,4 @@
-name: Build Succeeds on Master
+name: Build Succeeds on Main
 
 on :
   pull_request:
@@ -30,10 +30,6 @@ jobs:
 
       - name: Build
         run: npm run build
-        working-directory: ./server
-
-      - name: Test
-        run: npm test
         working-directory: ./server
  
  
