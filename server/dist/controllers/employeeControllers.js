@@ -15,7 +15,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.deleteEmployee = exports.updateEmployee = exports.getEmployee = exports.getEmployees = exports.createEmployee = void 0;
 const zod_1 = __importDefault(require("zod"));
 const employeeModel_1 = __importDefault(require("../models/employeeModel"));
-// @ts-ignore
 const dealsdray_common_1 = require("@abhiram2k03/dealsdray-common");
 const createEmployee = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {

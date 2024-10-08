@@ -17,16 +17,13 @@ const zod_1 = __importDefault(require("zod"));
 const bcrypt_1 = __importDefault(require("bcrypt"));
 const loginModel_1 = __importDefault(require("../models/loginModel"));
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
-// @ts-ignore
 const dealsdray_common_1 = require("@abhiram2k03/dealsdray-common");
 const createUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { username, password } = dealsdray_common_1.loginSchema.parse(req.body);
         const existingUser = yield loginModel_1.default.findOne({ username });
         if (existingUser) {
-            return res
-                .status(400)
-                .json({ message: "User already exists. Please login." });
+            return res.status(400).json({ message: "User already exists. Please login." });
         }
         const hashedPassword = yield bcrypt_1.default.hash(password, 10);
         const newUser = yield loginModel_1.default.create({
@@ -48,11 +45,7 @@ const createUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
             });
         }
         console.error("Error creating user:", err);
-        return res
-            .status(500)
-            .json({
-            message: "An unexpected error occurred. Please try again later.",
-        });
+        return res.status(500).json({ message: "An unexpected error occurred. Please try again later." });
     }
 });
 exports.createUser = createUser;
@@ -61,9 +54,7 @@ const loginUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         const { username, password } = dealsdray_common_1.loginSchema.parse(req.body);
         const existingUser = yield loginModel_1.default.findOne({ username });
         if (!existingUser) {
-            return res
-                .status(400)
-                .json({ message: "User doesn't exists. Please Signin." });
+            return res.status(400).json({ message: "User doesn't exists. Please Signin." });
         }
         const comparePassword = yield bcrypt_1.default.compare(password, existingUser.password);
         if (!comparePassword) {
@@ -84,11 +75,7 @@ const loginUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             });
         }
         console.error("Error creating user:", err);
-        return res
-            .status(500)
-            .json({
-            message: "An unexpected error occurred. Please try again later.",
-        });
+        return res.status(500).json({ message: "An unexpected error occurred. Please try again later." });
     }
 });
 exports.loginUser = loginUser;

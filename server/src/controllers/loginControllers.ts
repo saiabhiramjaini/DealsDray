@@ -11,9 +11,7 @@ export const createUser = async (req: Request, res: Response) => {
 
     const existingUser = await LoginModel.findOne({ username });
     if (existingUser) {
-      return res
-        .status(400)
-        .json({ message: "User already exists. Please login." });
+      return res.status(400).json({ message: "User already exists. Please login." });
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);
@@ -40,11 +38,7 @@ export const createUser = async (req: Request, res: Response) => {
     }
 
     console.error("Error creating user:", err);
-    return res
-      .status(500)
-      .json({
-        message: "An unexpected error occurred. Please try again later.",
-      });
+    return res.status(500).json({message: "An unexpected error occurred. Please try again later."});
   }
 };
 
@@ -54,9 +48,7 @@ export const loginUser = async (req: Request, res: Response) => {
     
         const existingUser = await LoginModel.findOne({ username });
         if (!existingUser) {
-          return res
-            .status(400)
-            .json({ message: "User doesn't exists. Please Signin." });
+          return res.status(400).json({ message: "User doesn't exists. Please Signin." });
         }
     
         const comparePassword = await bcrypt.compare(password, existingUser.password);
@@ -82,10 +74,6 @@ export const loginUser = async (req: Request, res: Response) => {
         }
     
         console.error("Error creating user:", err);
-        return res
-          .status(500)
-          .json({
-            message: "An unexpected error occurred. Please try again later.",
-          });
+        return res.status(500).json({message: "An unexpected error occurred. Please try again later."});
       }
 };

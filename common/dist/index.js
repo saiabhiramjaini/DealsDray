@@ -11,7 +11,7 @@ exports.loginSchema = zod_1.z.object({
 exports.employeeSchema = zod_1.z.object({
     name: zod_1.z.string().min(1, { message: "Name is required" }),
     email: zod_1.z.string().email({ message: "Invalid email address" }),
-    mobile: zod_1.z.string().min(1, { message: "Mobile number is required" }),
+    mobile: zod_1.z.string().min(10, { message: "Mobile number should contain 10 digits" }),
     designation: zod_1.z.enum(["HR", "Manager", "Sales"], { message: "Invalid designation" }),
     gender: zod_1.z.enum(["M", "F"], { message: "Invalid gender" }),
     course: zod_1.z.enum(["MCA", "BCA", "BSC"], { message: "Invalid course" }),

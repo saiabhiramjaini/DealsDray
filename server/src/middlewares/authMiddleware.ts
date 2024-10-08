@@ -10,9 +10,7 @@ export const authMiddleware = async (req: AuthenticatedRequest, res: Response, n
         }
 
         const token = req.cookies.token;
-
         const decoded = jwt.verify(token, process.env.JWT_SECRET!) as { id: string };
-
         const user = await LoginModel.findOne({ _id: decoded.id });
 
         if (!user) {

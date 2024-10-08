@@ -4,7 +4,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = __importDefault(require("mongoose"));
-// @ts-ignore
 const dealsdray_common_1 = require("@abhiram2k03/dealsdray-common");
 const EmployeeSchema = new mongoose_1.default.Schema({
     name: {

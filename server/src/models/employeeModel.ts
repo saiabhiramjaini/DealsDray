@@ -1,5 +1,4 @@
 import mongoose from 'mongoose';
-// @ts-ignore
 import { designationEnum, genderEnum, courseEnum } from '@abhiram2k03/dealsdray-common';
 
 const EmployeeSchema = new mongoose.Schema({
