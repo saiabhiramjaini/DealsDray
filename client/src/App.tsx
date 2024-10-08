@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import { LoginPage } from "./pages/LoginPage";
 import { SignupPage } from "./pages/SignupPage";
 import { DashboardPage } from "./pages/DashboardPage";
@@ -10,10 +10,13 @@ import 'react-toastify/dist/ReactToastify.css';
 import { Bounce, ToastContainer } from "react-toastify";
 
 export default function App() {
+  const isLoggedIn = localStorage.getItem("username") !== null;
+
   return (
    <>
     <BrowserRouter>
     <Routes>
+    <Route path="/" element={isLoggedIn ? <Navigate to="/home" replace /> : <LoginPage />} />
       <Route path="/" element={<LoginPage/>} />
       <Route path="/signup" element={<SignupPage/>} />
       <Route path="/home" element={<DashboardPage/>} />

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -22,6 +22,7 @@ export const UpdateEmployeePage = () => {
   const { id } = useParams();
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+  const navigate = useNavigate();
   const [employeeData, setEmployeeData] = useState({
     name: "",
     email: "",
@@ -116,6 +117,11 @@ export const UpdateEmployeePage = () => {
         toast.error(response.data.message);
       }
     } catch (error: any) {
+      if(error.response.status === 401) {
+        localStorage.removeItem("username");
+        toast.error("Session expired. Please login again.");
+        navigate("/");
+      }
       toast.error(error.response.data.message);
       console.error("Error occured", error);
       setErrorMessage("Updating employee failed. Please try again.");

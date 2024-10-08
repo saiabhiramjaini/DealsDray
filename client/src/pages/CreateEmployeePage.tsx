@@ -16,6 +16,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { useNavigate } from "react-router-dom";
 
 export const CreateEmployeePage = () => {
   const [employeeData, setEmployeeData] = useState({
@@ -30,6 +31,7 @@ export const CreateEmployeePage = () => {
 
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+  const navigate = useNavigate();
 
   const cloudinaryURL = import.meta.env.VITE_CLOUDINARY_URL;
   const cloudinaryUploadPreset = import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET;
@@ -104,6 +106,11 @@ export const CreateEmployeePage = () => {
         toast.error(response.data.message);
       }
     } catch (error: any) {
+      if(error.response.status === 401) {
+        localStorage.removeItem("username");
+        toast.error("Session expired. Please login again.");
+        navigate("/");
+      }
       toast.error(error.response.data.message);
       console.error("Error occured", error);
       setErrorMessage("Employee creation failed. Please try again.");

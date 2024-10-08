@@ -7,6 +7,7 @@ import { backendURL } from "@/config";
 import { useNavigate } from "react-router-dom";
 import { Navbar } from "@/components/ui/Navbar";
 import { Employee } from "@abhiram2k03/dealsdray-common";
+import { toast } from "react-toastify";
 
 export const EmployeeListPage = () => {
   const [employees, setEmployees] = useState([]);
@@ -21,7 +22,12 @@ export const EmployeeListPage = () => {
       try {
         const response = await axios.get(`${backendURL}/api/v1/employee`);
         setEmployees(response.data);
-      } catch (error) {
+      } catch (error: any) {
+        if(error.response.status === 401) {
+          localStorage.removeItem("username");
+          toast.error("Session expired. Please login again.");
+          navigate("/");
+        }
         console.error("Error fetching employees:", error);
         setErrorMessage("Failed to load employee data.");
       } finally {
