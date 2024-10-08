@@ -19,7 +19,7 @@ const EmployeeSchema = new mongoose.Schema({
     designation:{
         type: String,
         required: true,
-        enum: Object.values(designationEnum)
+        enum: designationEnum
     },
     gender:{
         type: String,
