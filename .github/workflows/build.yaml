@@ -6,6 +6,11 @@ on :
       - main
     paths:
       - 'server/**'
+  push:
+    branches:
+      - main
+    paths:
+      - 'server/**'
 
 jobs:
   build:
