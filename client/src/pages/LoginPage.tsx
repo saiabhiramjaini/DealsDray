@@ -42,10 +42,8 @@ export const LoginPage = () => {
         toast.error(response.data.message);
       }
     }  catch (error: any) {
-      //toast.error(error.response.data.errors[0].message);
       if(error.response.data.message === "Validation failed"){
         toast.error(error.response.data.errors[0].message);
-        
       }
       else{
         toast.error(error.response.data.message);
