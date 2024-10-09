@@ -24,7 +24,7 @@ export const createUser = async (req: Request, res: Response) => {
     });
 
     const token = jwt.sign({ id: newUser._id }, process.env.JWT_SECRET!);
-    res.cookie("token", token, { httpOnly: true });
+    res.cookie("token", token, { httpOnly: true, sameSite: "strict" });
 
     return res.status(201).json({ message: "User created", user: newUser });
   } catch (err) {
@@ -68,7 +68,7 @@ export const loginUser = async (req: Request, res: Response) => {
     }
 
     const token = jwt.sign({ id: existingUser._id }, process.env.JWT_SECRET!);
-    res.cookie("token", token, { httpOnly: true });
+    res.cookie("token", token, { httpOnly: true, sameSite: "strict" });
 
     return res
       .status(200)

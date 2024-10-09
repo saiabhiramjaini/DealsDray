@@ -20,7 +20,8 @@ export const EmployeeListPage = () => {
     const fetchEmployees = async () => {
       setLoading(true);
       try {
-        const response = await axios.get(`${backendURL}/api/v1/employee`);
+        const response = await axios.get(`${backendURL}/api/v1/employee`, {withCredentials: true});
+        console.log("response.data", response.data);
         setEmployees(response.data);
       } catch (error: any) {
         if(error.response.status === 401) {
