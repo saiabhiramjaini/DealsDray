@@ -59,7 +59,7 @@ export const loginUser = async (req: Request, res: Response) => {
     if (!existingUser) {
       return res
         .status(400)
-        .json({ message: "User doesn't exists. Please Signin." });
+        .json({ message: "User doesn't exists. Please Signup." });
     }
 
     const comparePassword = await bcrypt.compare(
