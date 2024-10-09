@@ -43,7 +43,7 @@ jobs:
             sudo docker stop dealsdray-server || true
             sudo docker rm dealsdray-server || true
             sudo docker run -d -p 8080:8080 \
-              -e PORT=8080 \
-              -e MONGO_URI="mongodb+srv://JSAIABHIRAM:Abthedevil28@cluster0.cyv7cq1.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0" \
-              -e JWT_SECRET=secret \
+              -e PORT=${{ secrets.ENV_PORT }} \
+              -e MONGO_URI=${{ secrets.ENV_MONGO_URI }} \
+              -e JWT_SECRET=${{ secrets.ENV_JWT_SECRET }} \
               --name dealsdray-server ${{ secrets.DOCKER_USERNAME }}/dealsdray-server:latest
