@@ -33,7 +33,11 @@ const createUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
             password: hashedPassword,
         });
         const token = jsonwebtoken_1.default.sign({ id: newUser._id }, process.env.JWT_SECRET);
-        res.cookie("token", token, { httpOnly: true });
+        res.cookie("token", token, {
+            httpOnly: true,
+            secure: true,
+            sameSite: 'none'
+        });
         return res.status(201).json({ message: "User created", user: newUser });
     }
     catch (err) {
@@ -69,7 +73,11 @@ const loginUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             return res.status(400).json({ message: "Invalid password" });
         }
         const token = jsonwebtoken_1.default.sign({ id: existingUser._id }, process.env.JWT_SECRET);
-        res.cookie("token", token, { httpOnly: true });
+        res.cookie("token", token, {
+            httpOnly: true,
+            secure: true,
+            sameSite: 'none'
+        });
         return res
             .status(200)
             .json({ message: "Login successful", user: existingUser });
