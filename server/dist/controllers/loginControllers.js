@@ -76,7 +76,7 @@ const loginUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         res.cookie("token", token, {
             httpOnly: true,
             secure: true,
-            sameSite: 'none'
+            sameSite: 'strict'
         });
         return res
             .status(200)
