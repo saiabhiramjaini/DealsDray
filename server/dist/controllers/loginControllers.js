@@ -66,7 +66,7 @@ const loginUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         if (!existingUser) {
             return res
                 .status(400)
-                .json({ message: "User doesn't exists. Please Signin." });
+                .json({ message: "User doesn't exists. Please Signup." });
         }
         const comparePassword = yield bcryptjs_1.default.compare(password, existingUser.password);
         if (!comparePassword) {
