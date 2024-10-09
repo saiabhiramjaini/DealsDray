@@ -41,12 +41,12 @@ export const SignupPage = () => {
         console.log(response.data.message);
         toast.error(response.data.message);
       }
-    } catch (error: any) {
-      if(error.response.data.message){
-        toast.error(error.response.data.message);
+    }  catch (error: any) {
+      if(error.response.data.message === "Validation failed"){
+        toast.error(error.response.data.errors[0].message);
       }
       else{
-        toast.error(error.response.data.errors[0].message);
+        toast.error(error.response.data.message);
       }
       console.error("Error occured", error);
       setErrorMessage("Signup failed. Please try again.");

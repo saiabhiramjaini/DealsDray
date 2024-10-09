@@ -70,7 +70,7 @@ const loginUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         }
         const comparePassword = yield bcryptjs_1.default.compare(password, existingUser.password);
         if (!comparePassword) {
-            return res.status(400).json({ message: "Invalid password" });
+            return res.status(400).json({ message: "Incorrect Password" });
         }
         const token = jsonwebtoken_1.default.sign({ id: existingUser._id }, process.env.JWT_SECRET);
         res.cookie("token", token, {
