@@ -33,7 +33,6 @@ export const createEmployee = async (req: Request, res: Response) => {
 
 export const getEmployees = async (req: Request, res: Response) => {
     try {
-      console.log("req.cookies", req.cookies);
       const employees = await EmployeeModel.find();
       return res.status(200).json(employees);
     } 

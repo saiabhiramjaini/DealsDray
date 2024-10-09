@@ -17,7 +17,6 @@ const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const loginModel_1 = __importDefault(require("../models/loginModel"));
 const authMiddleware = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        console.log("req.cookies", req.cookies);
         if (!req.cookies || !req.cookies.token) {
             return res.status(401).json({ message: 'Unauthorized' });
         }

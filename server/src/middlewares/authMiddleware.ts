@@ -5,7 +5,6 @@ import { AuthenticatedRequest } from '../utils/types';
 
 export const authMiddleware = async (req: AuthenticatedRequest, res: Response, next: NextFunction) => {
     try {
-        console.log("req.cookies", req.cookies);
         if (!req.cookies || !req.cookies.token) {
             return res.status(401).json({ message: 'Unauthorized' });
         }
