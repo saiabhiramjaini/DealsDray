@@ -33,12 +33,13 @@ export const createEmployee = async (req: Request, res: Response) => {
 
 export const getEmployees = async (req: Request, res: Response) => {
     try {
+      console.log("req.cookies", req.cookies);
       const employees = await EmployeeModel.find();
       return res.status(200).json(employees);
     } 
     catch (err) {
       console.error("Error retrieving employees:", err);
-      return res.status(500).json({ message: "Internal server error" });
+      return res.status(500).json({ message: "Internal server error", cookie: req.cookies });
     }
   };
 

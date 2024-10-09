@@ -43,12 +43,13 @@ const createEmployee = (req, res) => __awaiter(void 0, void 0, void 0, function*
 exports.createEmployee = createEmployee;
 const getEmployees = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
+        console.log("req.cookies", req.cookies);
         const employees = yield employeeModel_1.default.find();
         return res.status(200).json(employees);
     }
     catch (err) {
         console.error("Error retrieving employees:", err);
-        return res.status(500).json({ message: "Internal server error" });
+        return res.status(500).json({ message: "Internal server error", cookie: req.cookies });
     }
 });
 exports.getEmployees = getEmployees;
